@@ -23,12 +23,21 @@ func parseInput(input []byte) []int {
 	return data
 }
 
+func sweep(data []int) []int {
+	var sums []int
+	for i := 2; i < len(data); i++ {
+		sums = append(sums, data[i]+data[i-1]+data[i-2])
+	}
+	return sums
+}
+
 func main() {
 	input, err := os.ReadFile("./day1/input.txt")
 	if err != nil {
 		panic(err)
 	}
 	data := parseInput(input)
+	data = sweep(data)
 	incs := 0
 	for i := 1; i < len(data); i++ {
 		if data[i] > data[i-1] {
