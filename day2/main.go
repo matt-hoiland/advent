@@ -62,17 +62,18 @@ func ReadInput(filepath string) []Instruction {
 }
 
 type Position struct {
-	Depth, Horizontal int
+	Depth, Horizontal, Aim int
 }
 
 func (p *Position) Move(inst Instruction) {
 	switch inst.Direction {
 	case Forward:
 		p.Horizontal += inst.Magnitude
+		p.Depth += p.Aim * inst.Magnitude
 	case Down:
-		p.Depth += inst.Magnitude
+		p.Aim += inst.Magnitude
 	case Up:
-		p.Depth -= inst.Magnitude
+		p.Aim -= inst.Magnitude
 	}
 }
 
